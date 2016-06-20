@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Student Registration</title>
+
+        <script src="/static/js/angular.min.js"></script>
+        <script src="/static/js/student.js"></script>
+    </head>
+    <body ng-app="enroll" ng-controller="StudentController">
+      <div class="col-sm-6">
+          <h4 class="bigger lighter">
+          <i class="glyphicon glyphicon-align-justify"></i>STUDENT MANAGER
+          </h4>
+      </div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>ID</th>
+              <th>STATUS</th>
+              <th>CREATED DATE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="student in students">
+              <td>{{student.Name}}</td>
+              <td>{{student.Id}}</td>
+              <td>{{student.Status}}</td>
+              <td>{{student.CreatedAt}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-3">
+        <button ng-click="addNewClicked=!addNewClicked;" class="btn btn-sm btn-danger header-elements-margin"><i class="glyphicon  glyphicon-plus"></i>Add New Task</button>
+      </div>
+      <div class="col-sm-3">
+         <input type="text" ng-model="filterStudent" class="form-control search header-elements-margin" placeholder="Filter Student">
+      </div>
+      <div>
+        <input type="text" name="studentInput" ng-model="studentInput" placeholder="Add New Student" ng-focus="addNewClicked">
+        <button type="submit" ng-click="addStudent()">Add New Student</button>
+      </div>
+      <div>
+        <label ng-repeat="student in students | filter : filterStudent">
+          <input type="checkbox" value="{{student.Status}}" ng-checked="student.Status==2" ng-click="toggleStatus(student.Id, student)"/> 
+          <span ng-class="strike:student.Status==2">{{student.Name}} [{{student.Id}}]</span>
+          <button type="submit" ng-click="deleteStudent(student.Id)" class="pull-right"><i class="glyphicon glyphicon-trash"></i>Delete</button>
+        </label>
+      </div>
+    </body>
+</html>
